@@ -1,0 +1,58 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+function fmtDate(d: Date): string {
+  return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+}
+function readingTime(body: string): number {
+  const words = body.trim().split(/\s+/).length;
+  return Math.max(1, Math.round(words / 220));
+}
+---
+<Base title="Field Notes — Dr. Animesh Biswas" bodyClass="page-blog">
+  <nav id="nav">
+    <a class="nav-logo" href="/">
+      <span class="nav-logo-mark">AB</span>
+      <span class="nav-logo-dot"></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#ch1">01 Person</a></li>
+      <li><a href="/#ch2">02 Focus</a></li>
+      <li><a href="/#ch3">03 Impact</a></li>
+      <li><a href="/#ch4">04 Research</a></li>
+      <li><a href="/field-notes/" class="is-active">05 Field</a></li>
+      <li><a href="/#ch6">06 Moments</a></li>
+    </ul>
+    <a class="nav-btn" href="/#contact"><span>Connect</span><span class="nav-btn-arrow">→</span></a>
+  </nav>
+
+  <main class="blog-index">
+    <header class="blog-index-head">
+      <p class="ch1-eyebrow"><span class="dot"></span> Chapter 05 · Field Notes</p>
+      <h1 class="blog-index-title">Field <em>Notes</em></h1>
+      <p class="blog-index-sub">Dispatches, essays, and case notes from a working practice.</p>
+    </header>
+
+    <ul class="blog-list">
+      {posts.map((p) => (
+        <li class="blog-list-item">
+          <a href={`/field-notes/${p.slug}/`} class="blog-list-link">
+            <span class="blog-list-date">{fmtDate(p.data.date)}</span>
+            <span class="blog-list-meta">{p.data.category} · {readingTime(p.body)} min read</span>
+            <h2 class="blog-list-title">{p.data.title}</h2>
+            <p class="blog-list-summary">{p.data.summary}</p>
+            <span class="blog-list-arrow">→</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <p class="blog-back">
+      <a href="/">← Back to documentary</a>
+    </p>
+  </main>
+</Base>

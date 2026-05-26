@@ -1,0 +1,65 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props { post: CollectionEntry<'posts'>; }
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+function fmtDate(d: Date): string {
+  return d.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+function readingTime(body: string): number {
+  const words = body.trim().split(/\s+/).length;
+  return Math.max(1, Math.round(words / 220));
+}
+---
+<Base title={`${post.data.title} — Field Notes`} description={post.data.summary} bodyClass="page-post">
+  <nav id="nav">
+    <a class="nav-logo" href="/">
+      <span class="nav-logo-mark">AB</span>
+      <span class="nav-logo-dot"></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/field-notes/">← All field notes</a></li>
+    </ul>
+    <a class="nav-btn" href="/#contact"><span>Connect</span><span class="nav-btn-arrow">→</span></a>
+  </nav>
+
+  <article class="post">
+    <header class="post-head">
+      <p class="post-meta">{post.data.category} · {readingTime(post.body)} min read · {fmtDate(post.data.date)}</p>
+      <h1 class="post-title">{post.data.title}</h1>
+      <p class="post-summary">{post.data.summary}</p>
+      {post.data.cover && (
+        <div class="post-cover">
+          <img src={post.data.cover} alt={post.data.title} />
+        </div>
+      )}
+    </header>
+
+    <div class="post-body">
+      <Content />
+    </div>
+
+    {post.data.tags.length > 0 && (
+      <div class="ch1-tags post-tags">
+        {post.data.tags.map((t) => <span class="tag">{t}</span>)}
+      </div>
+    )}
+
+    <footer class="post-foot">
+      <a href="/field-notes/" class="post-back">← All field notes</a>
+      <a href="/" class="post-back">Back to documentary →</a>
+    </footer>
+  </article>
+</Base>
