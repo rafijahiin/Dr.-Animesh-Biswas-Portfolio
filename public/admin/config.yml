@@ -9,9 +9,6 @@ backend:
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
-# Branch-based editorial workflow so drafts don't go live until "Publish" is clicked
-publish_mode: editorial_workflow
-
 # Logo shown in the admin panel
 logo_url: /assets/favicon.svg
 
