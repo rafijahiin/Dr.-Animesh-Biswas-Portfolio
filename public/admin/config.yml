@@ -119,6 +119,8 @@ collections:
         fields:
           - { name: title, label: "Site title", widget: string, default: "Dr. Animesh Biswas — Global Health, in the Field" }
           - { name: description, label: "Meta description", widget: text }
+          - { name: portrait, label: "Chapter 01 — Portrait photo", widget: image, required: false, hint: "Vertical (3:4 / portrait) field shot. Used on the homepage Person chapter. If empty, a placeholder is shown." }
+          - { name: portrait_caption, label: "Portrait caption", widget: string, required: false, default: "Plate I — On assignment, Cox's Bazar" }
           - { name: email, label: "Contact email", widget: string, default: "hello@animeshbiswas.com" }
           - { name: linkedin, label: "LinkedIn URL", widget: string }
           - { name: researchgate, label: "ResearchGate URL", widget: string, required: false }

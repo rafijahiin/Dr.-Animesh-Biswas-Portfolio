@@ -134,12 +134,16 @@ function readingTime(body: string): number {
     <div class="ch1-stage">
       <div class="ch1-portrait">
         <div class="ch1-portrait-frame">
-          <div class="placeholder placeholder-portrait">
-            <span class="placeholder-cross"></span>
-            <span class="placeholder-label">Portrait · 3:4 · field shot, b/w</span>
-          </div>
+          {site.portrait
+            ? <img src={site.portrait} alt="Dr. Animesh Biswas" class="ch1-portrait-img" loading="lazy" />
+            : (
+              <div class="placeholder placeholder-portrait">
+                <span class="placeholder-cross"></span>
+                <span class="placeholder-label">Portrait · 3:4 · field shot, b/w</span>
+              </div>
+            )}
         </div>
-        <span class="ch1-portrait-caption">Plate I — On assignment, Cox's Bazar</span>
+        <span class="ch1-portrait-caption">{site.portrait_caption ?? 'Plate I — On assignment, Cox’s Bazar'}</span>
       </div>
 
       <div class="ch1-content">
