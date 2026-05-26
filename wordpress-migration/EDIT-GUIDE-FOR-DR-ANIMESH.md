@@ -227,6 +227,14 @@ Don't panic. Almost nothing is permanent.
 2. If you already saved: click the **Revisions** link on the right panel — WordPress remembers EVERY version. Pick an older one and restore it.
 3. If still confused: **Call Rafi**. Don't try to fix more — it'll just get worse.
 
+### Q: I see "Block contains unexpected or invalid content" with an "Attempt recovery" button.
+
+This sometimes appears when opening a page that was created in code. **Just click "Attempt recovery"** — WordPress automatically converts it to a clean visual block. Then click **Update**. Nothing breaks.
+
+### Q: I see "Convert to blocks" on a block.
+
+Same thing — click it. WordPress turns the HTML into editable blocks. Then Update.
+
 ### Q: How long until my changes appear on the live site?
 
 Instantly. As soon as you click **Update** or **Publish**, the change is live within 5 seconds. Refresh the public site to see it.
