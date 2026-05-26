@@ -132,29 +132,38 @@ When you're ready, click the blue **Publish** button (top right).
 
 ## 5. How to upload photos to the gallery
 
-The **Photography** page has 7 categories:
-- Public Health
-- People & Communities
-- Nature & Landscapes
-- Portraits
-- Flowers & Plants
-- Foods & Nutrition
-- Field Works & Activities
+The **Photography** page has **8 empty gallery boxes** — one for each category:
+1. Public Health
+2. People & Communities
+3. Nature & Landscapes
+4. Portraits
+5. Flowers & Plants
+6. Foods & Nutrition
+7. Field Works & Activities
+8. Award Winning Photos
 
-### To add photos to a category
+### To add your photos (the easy way — takes 30 seconds)
 
-1. Click **Modula** in the left menu.
-2. If you don't see a gallery for that category yet, click **Add New** (top button).
-3. Name the gallery (e.g., "Public Health" or "Nepal Flowers").
-4. Click **Add Images** → upload from your computer (you can select many at once).
-5. After upload, you can drag photos to reorder them.
-6. Each photo can have a small caption — click the photo and type.
-7. Click the blue **Save Gallery** button.
-8. Copy the **shortcode** that appears (looks like `[modula id="5"]`).
-9. Now open **Pages** → **Photography** → find the right section heading → paste the shortcode under it.
-10. Click **Update**.
+1. Click **Pages** in the left menu → **Photography** → opens the editor.
+2. Scroll down. Below the orange "📸 How to add your photos" box, you'll see the category sections.
+3. Each category has a **big empty gallery placeholder** (light grey box with a "+" or "Add Images" button).
+4. **Click on the empty gallery for the right category** (e.g., "Public Health").
+5. Click **Add Images** (or **Upload**).
+6. Pick photos from your computer — you can hold Ctrl/Cmd to **select many at once**. Upload as many as you want.
+7. The photos appear right there as a grid. You can drag to reorder them.
+8. Each photo can have a caption — click the photo and type the caption in the small box.
+9. When done, scroll to the top and click the blue **Update** button (top right).
 
-The photos appear on the live site within a few seconds.
+That's it. Your photos are now live on the Photography page within 2 seconds.
+
+### Tips for the photography page
+
+- **Best size**: 1600 pixels wide is plenty. Bigger files just slow down the page.
+- **Repeat for each category** — you can have only 5 photos in "Nature & Landscapes" and 30 in "Public Health" — completely up to you.
+- **Want to remove a photo?** Open Photography → click the photo in the gallery → small trash icon appears → click it → Update.
+- **Want to add MORE photos to an existing category?** Just open Photography → click the gallery → click the small "+" button → Add Images → upload more → Update.
+
+> **Bonus**: each photo you upload here ALSO appears in your **Media Library** (left menu → Media). You can reuse the same photo on any other page later.
 
 ---
 
