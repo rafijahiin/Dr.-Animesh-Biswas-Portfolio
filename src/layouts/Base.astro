@@ -31,6 +31,22 @@ const pageDesc = description ?? site.description;
   <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <link rel="stylesheet" href="/assets/styles.css" />
+
+  <!-- Netlify Identity widget — needed site-wide so invite/recovery tokens
+       in the URL hash (#invite_token=, #recovery_token=) get intercepted
+       and a "Set new password" modal appears. -->
+  <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script is:inline>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", (user) => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
 </head>
 <body class={bodyClass}>
   <slot />
