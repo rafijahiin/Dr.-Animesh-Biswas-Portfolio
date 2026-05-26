@@ -1,0 +1,57 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import { getCollection } from 'astro:content';
+import site from '../../data/site.json';
+
+const stories = (await getCollection('stories', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+function fmt(d: Date, lang: string): string {
+  return d.toLocaleDateString(lang === 'bn' ? 'bn-BD' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+---
+<Base title="Stories & Poems — Dr. Animesh Biswas" bodyClass="page-stories">
+  <nav id="nav">
+    <a href="/" class="nav-logo"><span>AB.</span><span class="nav-logo-dot"></span></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/field-notes/">Field Notes</a></li>
+      <li><a href="/stories/" class="is-active">Stories</a></li>
+      <li><a href="/publications/">Research</a></li>
+    </ul>
+    <div class="nav-socials">
+      <a href={`mailto:${site.email}`} aria-label="Email"><Icon name="email" /></a>
+    </div>
+  </nav>
+
+  <main class="blog-index">
+    <div class="page-head">
+      <p class="page-eyebrow"><span class="dot"></span> {site.section_stories_title}</p>
+      <h1 class="page-title">Stories &amp; <em>Poems</em></h1>
+      <p class="page-sub">{site.section_stories_sub}</p>
+    </div>
+
+    <ul class="blog-list">
+      {stories.map((s) => (
+        <li class="blog-list-item">
+          <a class="blog-list-link" href={`/stories/${s.slug}/`} lang={s.data.language}>
+            <span class="blog-list-date">{fmt(s.data.date, s.data.language)}</span>
+            <div>
+              <h2 class="blog-list-title">{s.data.title}</h2>
+              <p class="blog-list-summary">{s.data.summary}</p>
+              <p style="margin-top: 0.6rem;">
+                <span class="post-tag">{s.data.kind}</span>
+                <span class="post-tag">{s.data.language === 'bn' ? 'বাংলা' : 'English'}</span>
+              </p>
+            </div>
+            <span class="blog-list-arrow">→</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <p class="page-back"><a href="/">← Back to home</a></p>
+  </main>
+</Base>

@@ -1,0 +1,7 @@
+{
+  "platform": "Email",
+  "url": "mailto:abiswas@unfpa.org",
+  "icon": "email",
+  "label": "Get in touch",
+  "order": 40
+}

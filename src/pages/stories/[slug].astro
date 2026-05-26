@@ -6,29 +6,29 @@ import type { CollectionEntry } from 'astro:content';
 import site from '../../data/site.json';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts', ({ data }) => !data.draft);
-  return posts.map((post) => ({
+  const stories = await getCollection('stories', ({ data }) => !data.draft);
+  return stories.map((post) => ({
     params: { slug: post.slug },
     props: { post },
   }));
 }
 
-interface Props { post: CollectionEntry<'posts'>; }
+interface Props { post: CollectionEntry<'stories'>; }
 const { post } = Astro.props;
 const { Content } = await post.render();
 
-function fmt(d: Date): string {
-  return d.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+function fmt(d: Date, lang: string): string {
+  return d.toLocaleDateString(lang === 'bn' ? 'bn-BD' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 function readingTime(body: string): number {
   return Math.max(1, Math.round(body.trim().split(/\s+/).length / 220));
 }
 ---
-<Base title={`${post.data.title} — Field Notes`} description={post.data.summary} bodyClass="page-post">
+<Base title={`${post.data.title} — Stories & Poems`} description={post.data.summary} bodyClass="page-post">
   <nav id="nav">
     <a href="/" class="nav-logo"><span>AB.</span><span class="nav-logo-dot"></span></a>
     <ul class="nav-links">
-      <li><a href="/field-notes/">← All field notes</a></li>
+      <li><a href="/stories/">← All writing</a></li>
     </ul>
     <div class="nav-socials">
       <a href={`mailto:${site.email}`} aria-label="Email"><Icon name="email" /></a>
@@ -36,9 +36,9 @@ function readingTime(body: string): number {
   </nav>
 
   <article class="post-page">
-    <div class="post-article">
+    <div class="post-article" lang={post.data.language}>
       <header>
-        <div class="post-meta">{post.data.category} · {readingTime(post.body)} min read · {fmt(post.data.date)}</div>
+        <div class="post-meta">{post.data.kind} · {post.data.language === 'bn' ? 'বাংলা' : 'English'} · {readingTime(post.body)} min · {fmt(post.data.date, post.data.language)}</div>
         <h1>{post.data.title}</h1>
         {post.data.summary && <p class="summary">{post.data.summary}</p>}
         {post.data.cover && (
@@ -59,7 +59,7 @@ function readingTime(body: string): number {
       )}
 
       <footer class="post-foot">
-        <a href="/field-notes/">← All field notes</a>
+        <a href="/stories/">← All writing</a>
         <a href="/">Back to home →</a>
       </footer>
     </div>

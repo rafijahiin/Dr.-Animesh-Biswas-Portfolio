@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { getCollection } from 'astro:content';
+import site from '../data/site.json';
+import stats from '../data/stats.json';
+
+const pubs = (await getCollection('publications'))
+  .sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100));
+---
+<Base title="Research — Dr. Animesh Biswas" bodyClass="page-publications">
+  <nav id="nav">
+    <a href="/" class="nav-logo"><span>AB.</span><span class="nav-logo-dot"></span></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/field-notes/">Field Notes</a></li>
+      <li><a href="/stories/">Stories</a></li>
+      <li><a href="/publications/" class="is-active">Research</a></li>
+    </ul>
+    <div class="nav-socials">
+      <a href={`mailto:${site.email}`} aria-label="Email"><Icon name="email" /></a>
+      {site.researchgate && <a href={site.researchgate} target="_blank" rel="noopener" aria-label="ResearchGate"><Icon name="researchgate" /></a>}
+    </div>
+  </nav>
+
+  <main class="publications-page">
+    <div class="page-head">
+      <p class="page-eyebrow"><span class="dot"></span> Research</p>
+      <h1 class="page-title">Selected <em>Publications</em></h1>
+      <p class="page-sub">{site.section_publications_sub} A partial record — {stats.publications}{stats.publications_suffix} further outputs available on request.</p>
+    </div>
+
+    <div class="pubs-list">
+      {pubs.map((p) => (
+        <a class="pub-item" href={p.data.url ?? '#'} target={p.data.url ? '_blank' : undefined} rel={p.data.url ? 'noopener' : undefined}>
+          <div class="pub-year-venue">
+            <span>{p.data.year}</span>
+            <span class="dot"></span>
+            <span>{p.data.venue_name}</span>
+            <span class="pub-venue-sub">{p.data.venue_sub}</span>
+          </div>
+          <h2 class="pub-title">{p.data.title}</h2>
+          <p class="pub-abs">{p.data.abstract}</p>
+          {p.data.tags.length > 0 && (
+            <div class="pub-tags">
+              {p.data.tags.map((t) => <span class="pub-tag">{t}</span>)}
+            </div>
+          )}
+          {p.data.url && <span class="pub-link">Read paper <span>→</span></span>}
+        </a>
+      ))}
+    </div>
+
+    <p class="page-back">
+      {site.bibliography_pdf
+        ? <a href={site.bibliography_pdf} target="_blank" rel="noopener">Download full bibliography (PDF) →</a>
+        : <a href={`mailto:${site.email}?subject=Bibliography request`}>Request full bibliography →</a>}
+    </p>
+    <p class="page-back" style="margin-top: 1rem;"><a href="/">← Back to home</a></p>
+  </main>
+</Base>

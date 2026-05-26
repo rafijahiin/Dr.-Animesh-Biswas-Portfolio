@@ -14,6 +14,21 @@ const posts = defineCollection({
   }),
 });
 
+const stories = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    language: z.enum(['en', 'bn']).default('en'),
+    kind: z.enum(['Story', 'Poem', 'Reflection']).default('Story'),
+    cover: z.string().optional(),
+    summary: z.string(),
+    featured: z.boolean().default(false),
+    draft: z.boolean().default(true),
+    tags: z.array(z.string()).default([]),
+  }),
+});
+
 const gallery = defineCollection({
   type: 'data',
   schema: z.object({
@@ -41,4 +56,26 @@ const publications = defineCollection({
   }),
 });
 
-export const collections = { posts, gallery, publications };
+const advisory = defineCollection({
+  type: 'data',
+  schema: z.object({
+    title: z.string(),
+    body: z.string(),
+    bullets: z.array(z.string()).default([]),
+    icon: z.enum(['heart', 'shield', 'globe', 'spark', 'pulse', 'leaf', 'compass']).default('spark'),
+    order: z.number().default(100),
+  }),
+});
+
+const socials = defineCollection({
+  type: 'data',
+  schema: z.object({
+    platform: z.string(),
+    url: z.string(),
+    icon: z.enum(['linkedin', 'youtube', 'researchgate', 'x', 'instagram', 'github', 'email', 'globe']),
+    label: z.string().default('Find me here'),
+    order: z.number().default(100),
+  }),
+});
+
+export const collections = { posts, stories, gallery, publications, advisory, socials };

@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import site from '../data/site.json';
+
+// Render markdown-lite (paragraphs split by \n\n, **bold**, *italic*)
+function renderMarkdown(md: string): string {
+  return md.split(/\n\n+/).map((para) => {
+    let p = para
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/(?<!\*)\*([^*\n]+)\*(?!\*)/g, '<em>$1</em>');
+    return `<p>${p}</p>`;
+  }).join('\n');
+}
+const aboutHtml = renderMarkdown(site.about_full || '');
+---
+<Base title="About — Dr. Animesh Biswas" bodyClass="page-about">
+  <nav id="nav">
+    <a href="/" class="nav-logo"><span>AB.</span><span class="nav-logo-dot"></span></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about/" class="is-active">About</a></li>
+      <li><a href="/field-notes/">Field Notes</a></li>
+      <li><a href="/stories/">Stories</a></li>
+      <li><a href="/publications/">Research</a></li>
+    </ul>
+    <div class="nav-socials">
+      <a href={`mailto:${site.email}`} aria-label="Email"><Icon name="email" /></a>
+    </div>
+  </nav>
+
+  <main class="about-page">
+    <div class="page-head">
+      <p class="page-eyebrow"><span class="dot"></span> About</p>
+      <h1 class="page-title">My <em>Story</em></h1>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-portrait-wrap">
+        {site.portrait
+          ? <img src={site.portrait} alt="Dr. Animesh Biswas" />
+          : <div class="hero-photo-placeholder">Upload a portrait in<br/>Site Settings → Chapter 01 Portrait</div>}
+      </div>
+      <div class="about-body" set:html={aboutHtml}></div>
+    </div>
+
+    <p class="page-back"><a href="/">← Back to home</a></p>
+  </main>
+</Base>

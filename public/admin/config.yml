@@ -1,24 +1,20 @@
-# Sveltia CMS configuration
-# This defines the admin panel Dr. Biswas sees at /admin
+# Decap CMS configuration
+# Admin panel Dr. Biswas sees at /admin
 
 backend:
   name: git-gateway
   branch: main
 
-# Where uploaded images get stored in the repo
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
-# Logo shown in the admin panel
-logo_url: /assets/favicon.svg
-
-site_url: https://animesh-biswas.netlify.app
-display_url: https://animesh-biswas.netlify.app
+site_url: https://dranimeshportfolio.netlify.app
+display_url: https://dranimeshportfolio.netlify.app
 
 collections:
-  # ───────── FIELD NOTES (blog) ─────────
+  # ───────── FIELD NOTES (professional blog) ─────────
   - name: posts
-    label: "Field Notes (Blog)"
+    label: "Field Notes (Professional)"
     label_singular: "Field Note"
     folder: "src/content/posts"
     create: true
@@ -26,20 +22,50 @@ collections:
     summary: "{{date | date('YYYY-MM-DD')}} — {{title}}"
     sortable_fields: ["date", "title"]
     view_filters:
-      - label: "Drafts"
-        field: draft
-        pattern: true
-      - label: "Published"
-        field: draft
-        pattern: false
+      - { label: "Drafts", field: draft, pattern: true }
+      - { label: "Published", field: draft, pattern: false }
     fields:
       - { name: title, label: "Title", widget: string }
       - { name: date, label: "Published date", widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
-      - { name: category, label: "Category badge", widget: select, options: ["Maternal Health", "SRH Policy", "MPDSR", "Commentary", "Field Notes", "Research", "Personal"], default: "Field Notes" }
-      - { name: cover, label: "Cover image", widget: image, required: false, hint: "Recommended 1600x1000 (16:10). Optional — placeholder shows if empty." }
+      - { name: category, label: "Category badge", widget: select, options: ["Maternal Health", "SRH Policy", "MPDSR", "Commentary", "Field Notes", "Research"], default: "Field Notes" }
+      - { name: cover, label: "Cover image", widget: image, required: false }
       - { name: summary, label: "Summary / excerpt", widget: text, hint: "1-3 sentences shown on the homepage card." }
-      - { name: featured, label: "Featured (large card on homepage)", widget: boolean, default: false, required: false }
-      - { name: draft, label: "Draft (don't publish yet)", widget: boolean, default: true, required: false }
+      - { name: featured, label: "Featured", widget: boolean, default: false, required: false }
+      - { name: draft, label: "Draft", widget: boolean, default: true, required: false }
+      - { name: tags, label: "Tags", widget: list, required: false, default: [] }
+      - { name: body, label: "Body", widget: markdown }
+
+  # ───────── STORIES & POEMS (creative/personal blog) ─────────
+  - name: stories
+    label: "Stories & Poems (Personal)"
+    label_singular: "Story / Poem"
+    folder: "src/content/stories"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{date | date('YYYY-MM-DD')}} — {{title}} ({{language}})"
+    sortable_fields: ["date", "title"]
+    view_groups:
+      - { label: "By language", field: language }
+      - { label: "By kind", field: kind }
+    fields:
+      - { name: title, label: "Title", widget: string }
+      - { name: date, label: "Published date", widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - name: language
+        label: "Language"
+        widget: select
+        default: en
+        options:
+          - { label: "English", value: en }
+          - { label: "বাংলা (Bengali)", value: bn }
+      - name: kind
+        label: "Kind"
+        widget: select
+        default: Story
+        options: ["Story", "Poem", "Reflection"]
+      - { name: cover, label: "Cover image", widget: image, required: false }
+      - { name: summary, label: "Summary / excerpt", widget: text }
+      - { name: featured, label: "Featured (shown on homepage)", widget: boolean, default: false, required: false }
+      - { name: draft, label: "Draft", widget: boolean, default: true, required: false }
       - { name: tags, label: "Tags", widget: list, required: false, default: [] }
       - { name: body, label: "Body", widget: markdown }
 
@@ -55,8 +81,7 @@ collections:
     summary: "{{category}} — {{caption}}"
     sortable_fields: ["order", "date", "category"]
     view_groups:
-      - label: "By category"
-        field: category
+      - { label: "By category", field: category }
     fields:
       - { name: image, label: "Photo", widget: image }
       - name: category
@@ -67,15 +92,15 @@ collections:
           - { label: "Conferences", value: "conferences" }
           - { label: "Community", value: "community" }
           - { label: "Personal", value: "personal" }
-      - { name: caption, label: "Caption", widget: string, hint: "Short — e.g. 'Cox's Bazar field visit'" }
-      - { name: location, label: "Location", widget: string, required: false, hint: "e.g. 'Cox's Bazar, Bangladesh'" }
+      - { name: caption, label: "Caption", widget: string }
+      - { name: location, label: "Location", widget: string, required: false }
       - { name: date, label: "Date taken", widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false }
       - { name: order, label: "Display order (lower = first)", widget: number, default: 100, value_type: int, required: false }
-      - { name: featured, label: "Featured (larger tile)", widget: boolean, default: false, required: false }
+      - { name: featured, label: "Featured (wide tile)", widget: boolean, default: false, required: false }
 
-  # ───────── PUBLICATIONS (featured 5-8) ─────────
+  # ───────── PUBLICATIONS ─────────
   - name: publications
-    label: "Featured Publications"
+    label: "Selected Publications"
     label_singular: "Publication"
     folder: "src/content/publications"
     create: true
@@ -87,53 +112,141 @@ collections:
     fields:
       - { name: title, label: "Title", widget: string }
       - { name: year, label: "Year", widget: number, value_type: int, min: 2000, max: 2030 }
-      - { name: venue_name, label: "Venue (short)", widget: string, hint: "e.g. 'WHO', 'UNFPA', 'Journal'" }
-      - { name: venue_sub, label: "Venue subtitle", widget: string, hint: "e.g. 'Global report', 'Peer-reviewed'" }
+      - { name: venue_name, label: "Venue (short)", widget: string }
+      - { name: venue_sub, label: "Venue subtitle", widget: string }
       - { name: abstract, label: "Abstract / blurb", widget: text }
       - { name: tags, label: "Tags", widget: list, default: [] }
       - { name: url, label: "Link to paper (optional)", widget: string, required: false }
       - { name: order, label: "Display order (lower = first)", widget: number, default: 100, value_type: int, required: false }
 
-  # ───────── SINGLE-FILE DATA (stats, site, videos) ─────────
+  # ───────── ADVISORY AREAS (services cards) ─────────
+  - name: advisory
+    label: "Advisory Areas"
+    label_singular: "Advisory Card"
+    folder: "src/content/advisory"
+    create: true
+    extension: "json"
+    format: "json"
+    slug: "{{title}}"
+    summary: "{{title}}"
+    sortable_fields: ["order", "title"]
+    fields:
+      - { name: title, label: "Title", widget: string }
+      - { name: body, label: "Short description", widget: text }
+      - { name: bullets, label: "Bullet points (optional)", widget: list, required: false, default: [] }
+      - name: icon
+        label: "Icon"
+        widget: select
+        default: spark
+        options: ["heart", "shield", "globe", "spark", "pulse", "leaf", "compass"]
+      - { name: order, label: "Display order (lower = first)", widget: number, default: 100, value_type: int, required: false }
+
+  # ───────── SOCIAL LINKS ─────────
+  - name: socials
+    label: "Social Links"
+    label_singular: "Social Link"
+    folder: "src/content/socials"
+    create: true
+    extension: "json"
+    format: "json"
+    slug: "{{icon}}"
+    summary: "{{platform}}"
+    sortable_fields: ["order", "platform"]
+    fields:
+      - { name: platform, label: "Platform name", widget: string }
+      - { name: url, label: "URL", widget: string }
+      - name: icon
+        label: "Icon"
+        widget: select
+        options: ["linkedin", "youtube", "researchgate", "x", "instagram", "github", "email", "globe"]
+      - { name: label, label: "Call-to-action text", widget: string, default: "Find me here" }
+      - { name: order, label: "Display order", widget: number, default: 100, value_type: int, required: false }
+
+  # ───────── SINGLE-FILE SETTINGS ─────────
   - name: settings
     label: "Site Settings"
     delete: false
     editor: { preview: false }
     files:
+      - name: site
+        label: "General Site Info & Section Text"
+        file: "src/data/site.json"
+        fields:
+          - { name: title, label: "Site title (browser tab)", widget: string }
+          - { name: description, label: "Meta description (SEO)", widget: text }
+
+          - label: "─── Hero (top of homepage) ───", name: hero_section, widget: object, fields: [
+              { name: hero_greeting, label: "Greeting (e.g. 'Hello —')", widget: string },
+              { name: hero_role, label: "One-line role description", widget: text },
+              { name: hero_cta_primary_label, label: "Primary button text", widget: string },
+              { name: hero_cta_primary_href, label: "Primary button link", widget: string },
+              { name: hero_cta_secondary_label, label: "Secondary button text", widget: string },
+              { name: hero_cta_secondary_href, label: "Secondary button link", widget: string },
+              { name: hero_photo, label: "Hero photo (vertical/portrait)", widget: image, required: false, hint: "4:5 ratio recommended" }
+            ]
+
+          - label: "─── My Story / Portrait ───", name: story_section, widget: object, fields: [
+              { name: portrait, label: "Portrait photo (small, round)", widget: image, required: false, hint: "Used in My Story preview and About page" },
+              { name: portrait_caption, label: "Portrait caption", widget: string, required: false },
+              { name: about_short, label: "Short bio (homepage preview)", widget: text, hint: "1-2 paragraphs. HTML allowed: <em> for italics" },
+              { name: about_full, label: "Full bio (about page)", widget: text, hint: "Markdown: **bold**, *italic*. Separate paragraphs with blank lines." }
+            ]
+
+          - label: "─── Section headings (homepage) ───", name: headings, widget: object, fields: [
+              { name: section_stats_title, label: "Stats section title", widget: string },
+              { name: section_socials_title, label: "Socials section title", widget: string },
+              { name: section_socials_sub, label: "Socials section subtitle", widget: string },
+              { name: section_story_title, label: "My Story title", widget: string },
+              { name: section_advisory_title, label: "Advisory section title", widget: string },
+              { name: section_advisory_sub, label: "Advisory subtitle", widget: string },
+              { name: section_gallery_title, label: "Gallery section title", widget: string },
+              { name: section_gallery_sub, label: "Gallery subtitle", widget: string },
+              { name: section_videos_title, label: "Videos section title", widget: string },
+              { name: section_videos_sub, label: "Videos subtitle", widget: string },
+              { name: section_field_notes_title, label: "Field Notes section title", widget: string },
+              { name: section_field_notes_sub, label: "Field Notes subtitle", widget: string },
+              { name: section_stories_title, label: "Stories section title", widget: string },
+              { name: section_stories_sub, label: "Stories subtitle", widget: string },
+              { name: section_publications_title, label: "Publications page title", widget: string, required: false },
+              { name: section_publications_sub, label: "Publications page subtitle", widget: string, required: false }
+            ]
+
+          - label: "─── Contact section ───", name: contact_section, widget: object, fields: [
+              { name: contact_overline, label: "Overline label", widget: string },
+              { name: contact_cta, label: "Main CTA headline (HTML: use <em> for cyan)", widget: text }
+            ]
+
+          - label: "─── Contact / Social URLs ───", name: contact_urls, widget: object, fields: [
+              { name: email, label: "Contact email", widget: string },
+              { name: linkedin, label: "LinkedIn URL", widget: string },
+              { name: researchgate, label: "ResearchGate URL", widget: string, required: false },
+              { name: youtube, label: "YouTube channel URL", widget: string, required: false },
+              { name: unfpa, label: "UNFPA profile URL", widget: string, required: false },
+              { name: bibliography_pdf, label: "Bibliography PDF", widget: file, required: false, hint: "If uploaded, replaces 'Request bibliography' with a download link." }
+            ]
+
+          - { name: footer_copy, label: "Footer copyright text", widget: string }
+
       - name: stats
-        label: "Numbers (Chapter 03)"
+        label: "Numbers (Stats block)"
         file: "src/data/stats.json"
         fields:
           - { name: publications, label: "Publications count", widget: number, value_type: int, default: 130 }
           - { name: publications_suffix, label: "Publications suffix", widget: string, default: "+" }
           - { name: years, label: "Years of practice", widget: number, value_type: int, default: 12 }
           - { name: years_suffix, label: "Years suffix", widget: string, default: "+" }
-          - { name: countries, label: "Countries with programme reach", widget: number, value_type: int, default: 15 }
+          - { name: countries, label: "Countries reached", widget: number, value_type: int, default: 15 }
           - { name: countries_suffix, label: "Countries suffix", widget: string, default: "+" }
           - { name: advisory_years, label: "Years on WHO advisory", widget: number, value_type: int, default: 5 }
           - { name: advisory_suffix, label: "Advisory suffix", widget: string, default: "+" }
 
-      - name: site
-        label: "General Site Info"
-        file: "src/data/site.json"
-        fields:
-          - { name: title, label: "Site title", widget: string, default: "Dr. Animesh Biswas — Global Health, in the Field" }
-          - { name: description, label: "Meta description", widget: text }
-          - { name: portrait, label: "Chapter 01 — Portrait photo", widget: image, required: false, hint: "Vertical (3:4 / portrait) field shot. Used on the homepage Person chapter. If empty, a placeholder is shown." }
-          - { name: portrait_caption, label: "Portrait caption", widget: string, required: false, default: "Plate I — On assignment, Cox's Bazar" }
-          - { name: email, label: "Contact email", widget: string, default: "hello@animeshbiswas.com" }
-          - { name: linkedin, label: "LinkedIn URL", widget: string }
-          - { name: researchgate, label: "ResearchGate URL", widget: string, required: false }
-          - { name: unfpa, label: "UNFPA profile URL", widget: string, required: false }
-          - { name: bibliography_pdf, label: "Bibliography PDF (uploaded)", widget: file, required: false, hint: "If set, 'Request bibliography' becomes a download link." }
-
       - name: videos
-        label: "YouTube Section (Diaries)"
+        label: "YouTube Section"
         file: "src/data/videos.json"
         fields:
-          - { name: channel_handle, label: "YouTube channel handle", widget: string, default: "@AniTapDoctorCouple" }
-          - { name: channel_id, label: "YouTube channel ID (UC...)", widget: string, hint: "Find at: youtube.com/account_advanced" }
-          - { name: section_title, label: "Section title", widget: string, default: "Diaries" }
-          - { name: section_subtitle, label: "Section subtitle", widget: string, default: "From the AniTap channel — the doctor couple, off-duty." }
-          - { name: pinned_url, label: "Pinned video URL (optional)", widget: string, required: false, hint: "If set, this video shows first instead of the latest." }
+          - { name: channel_handle, label: "YouTube channel handle", widget: string }
+          - { name: channel_id, label: "YouTube channel ID (UC...)", widget: string }
+          - { name: section_title, label: "Section title", widget: string, default: "Videos" }
+          - { name: section_subtitle, label: "Section subtitle", widget: string }
+          - { name: pinned_url, label: "Pinned video URL (optional)", widget: string, required: false }
           - { name: show_section, label: "Show this section on homepage", widget: boolean, default: true }

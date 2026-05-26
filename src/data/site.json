@@ -1,11 +1,47 @@
 {
-  "portrait_caption": "Plate I — On assignment, Cox's Bazar",
-  "researchgate": "https://www.researchgate.net/scientific-contributions/Animesh-Biswas-2229204850",
-  "bibliography_pdf": "",
   "title": "Animesh ",
-  "portrait": "/uploads/dr.-animesh-biswash-pic-size-2-x-2-1-.jpg",
-  "email": "abiswas@unfpa.org",
   "description": "Dr. Animesh Biswas, PhD — Global Health Expert at UNFPA Bangladesh. Maternal & reproductive health, MPDSR, SRH in humanitarian emergencies.",
+
+  "hero_greeting": "Hello —",
+  "hero_role": "A global health practitioner at UNFPA Bangladesh, working at the difficult edges of reproductive health.",
+  "hero_cta_primary_label": "Get in touch",
+  "hero_cta_primary_href": "#contact",
+  "hero_cta_secondary_label": "About me",
+  "hero_cta_secondary_href": "/about/",
+
+  "hero_photo": "/uploads/dr.-animesh-biswash-pic-size-2-x-2-1-.jpg",
+  "portrait": "/uploads/dr.-animesh-biswash-pic-size-2-x-2-1-.jpg",
+  "portrait_caption": "Plate I — On assignment, Cox's Bazar",
+
+  "about_short": "Dr. Animesh Biswas is a global health practitioner at <em>UNFPA Bangladesh</em>, where he works at the intersection of maternal and reproductive health, humanitarian response, and public-health systems.",
+  "about_full": "Dr. Animesh Biswas is a global health practitioner at **UNFPA Bangladesh**, working at the difficult edges of reproductive health — where policy meets crisis, and where systems must be built before they can be measured.\n\nHe pioneered the use of **Cash and Voucher Assistance for Sexual and Reproductive Health outcomes** in humanitarian emergencies — a model now studied, validated and replicated across multiple countries. The work began in the Rohingya response in Cox's Bazar and has since travelled.\n\nA standing member of the **WHO Global MPDSR Technical Working Group** for over five years, he has contributed case studies to WHO's 2024 global report and advised on the international guidance for cash-based programming in SRH.",
+
+  "section_stats_title": "By the Numbers",
+  "section_socials_title": "Find me on socials",
+  "section_socials_sub": "Where the work, the writing, and the everyday show up.",
+  "section_story_title": "My Story",
+  "section_advisory_title": "Advisory Areas",
+  "section_advisory_sub": "Practice areas, woven across policy, programme and field.",
+  "section_gallery_title": "Photography",
+  "section_gallery_sub": "Field, conferences, community, and a few personal frames.",
+  "section_videos_title": "Videos",
+  "section_videos_sub": "From the AniTap channel — the doctor couple, off-duty.",
+  "section_field_notes_title": "Field Notes",
+  "section_field_notes_sub": "Dispatches, essays, and case notes from a working practice.",
+  "section_stories_title": "Stories & Poems",
+  "section_stories_sub": "Personal writing — in English and in Bangla.",
+  "section_publications_title": "Selected Publications",
+  "section_publications_sub": "A partial record — 130+ further outputs available on request.",
+
+  "contact_overline": "An open invitation",
+  "contact_cta": "Have a project, <em>a collaboration,</em> or a question in mind?",
+
+  "email": "abiswas@unfpa.org",
   "linkedin": "https://bd.linkedin.com/in/animeshb",
-  "unfpa": ""
+  "researchgate": "https://www.researchgate.net/scientific-contributions/Animesh-Biswas-2229204850",
+  "youtube": "https://www.youtube.com/@AniTapDoctorCouple",
+  "unfpa": "",
+  "bibliography_pdf": "",
+
+  "footer_copy": "© 2026 Dr. Animesh Biswas, PhD"
 }
