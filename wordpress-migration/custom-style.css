@@ -1,0 +1,307 @@
+/* ══════════════════════════════════════════════════════════════
+   Dr. Animesh Biswas — custom theme styles for WordPress
+   Paste into: Appearance → Customize → Additional CSS
+   Palette: tinted dark teal / midnight + cyan accent
+   Designed for the Blocksy theme (also works with Astra, Kadence).
+   ══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg:        #0c1418;
+  --bg-2:      #11191f;
+  --bg-3:      #182127;
+  --card:      #131c22;
+  --card-hover:#1a242c;
+  --text:      #f0f6fc;
+  --text-2:    #c9d1d9;
+  --muted:     #8b969e;
+  --line:      rgba(240, 246, 252, 0.08);
+  --line-2:    rgba(240, 246, 252, 0.14);
+  --cyan:      #22d3ee;
+  --cyan-glow: rgba(34, 211, 238, 0.35);
+  --cyan-soft: rgba(34, 211, 238, 0.1);
+
+  --sans:    'Inter', system-ui, sans-serif;
+  --display: 'Montserrat', 'Inter', sans-serif;
+  --bn:      'Hind Siliguri', 'Noto Sans Bengali', 'Inter', sans-serif;
+  --mono:    'JetBrains Mono', monospace;
+}
+
+/* ─── Body / background ─── */
+body {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  font-family: var(--sans) !important;
+  line-height: 1.65;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 70% 50% at 80% 0%, rgba(34, 211, 238, 0.07), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 0% 100%, rgba(34, 211, 238, 0.04), transparent 60%);
+}
+
+/* Bengali content */
+[lang="bn"], .bengali, .post-bn { font-family: var(--bn) !important; }
+
+/* ─── Typography ─── */
+h1, h2, h3, h4, h5, h6,
+.wp-block-heading,
+.entry-title {
+  font-family: var(--display) !important;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+h1, .entry-title { font-weight: 800; font-size: clamp(2.2rem, 5vw, 3.5rem); }
+h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-top: 2.5em; }
+h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); margin-top: 2em; }
+
+p { font-size: 1.05rem; line-height: 1.7; color: var(--text-2); margin-bottom: 1.3em; }
+strong { color: var(--text); }
+em { color: var(--cyan); font-style: normal; font-weight: 500; }
+
+a {
+  color: var(--cyan);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+a:hover { opacity: 0.75; }
+
+::selection { background: var(--cyan); color: var(--bg); }
+
+/* ─── Site header / nav ─── */
+.ct-header, header.site-header, .ct-header-cta {
+  background: rgba(12, 20, 24, 0.85) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--line);
+}
+.ct-header a, .menu-item a, .ct-menu-link {
+  color: var(--text-2) !important;
+  font-family: var(--mono) !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+.ct-header a:hover, .menu-item.current-menu-item a,
+.ct-menu-link.active, .ct-menu-link:hover {
+  color: var(--cyan) !important;
+}
+.site-title, .ct-site-title {
+  font-family: var(--display) !important;
+  font-weight: 800 !important;
+  font-size: 1.1rem !important;
+  letter-spacing: -0.01em !important;
+  text-transform: none !important;
+  color: var(--text) !important;
+}
+
+/* ─── Hero / page header ─── */
+.entry-header, .ct-hero {
+  padding: clamp(5rem, 12vw, 9rem) 1rem clamp(3rem, 7vw, 5rem) !important;
+  text-align: left;
+  position: relative;
+}
+
+/* ─── Sections / containers ─── */
+.ct-container, .container, .entry-content, .site-main {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding-left: clamp(1rem, 4vw, 2rem);
+  padding-right: clamp(1rem, 4vw, 2rem);
+}
+
+.entry-content > * + * { margin-top: 1.4em; }
+.entry-content blockquote {
+  border-left: 3px solid var(--cyan);
+  background: linear-gradient(to right, var(--cyan-soft), transparent);
+  padding: 1.2em 1.5em;
+  margin: 1.8em 0;
+  border-radius: 0 4px 4px 0;
+  color: var(--text-2);
+  font-style: italic;
+}
+
+/* ─── Cards (posts in archive, widgets) ─── */
+article.post, .ct-post-card, .wp-block-post-template li, .post-card {
+  background: var(--card) !important;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+article.post:hover, .ct-post-card:hover, .post-card:hover {
+  border-color: var(--cyan);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+.entry-meta, .ct-meta, .post-meta {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 0.6rem;
+}
+
+/* ─── Buttons ─── */
+.wp-block-button__link, .ct-button, button.btn, input[type="submit"] {
+  background: var(--cyan) !important;
+  color: var(--bg) !important;
+  border: 1px solid var(--cyan) !important;
+  font-family: var(--display) !important;
+  font-weight: 700 !important;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 1rem 1.7rem !important;
+  border-radius: 4px !important;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 20px rgba(34, 211, 238, 0.25);
+}
+.wp-block-button__link:hover, .ct-button:hover, button.btn:hover {
+  background: transparent !important;
+  color: var(--cyan) !important;
+  box-shadow: 0 8px 28px rgba(34, 211, 238, 0.4);
+  transform: translateY(-2px);
+}
+.is-style-outline .wp-block-button__link {
+  background: transparent !important;
+  color: var(--text) !important;
+  box-shadow: none !important;
+}
+.is-style-outline .wp-block-button__link:hover {
+  color: var(--cyan) !important;
+  border-color: var(--cyan) !important;
+}
+
+/* ─── Footer ─── */
+.site-footer, .ct-footer {
+  background: var(--bg-2) !important;
+  border-top: 1px solid var(--line);
+  color: var(--muted) !important;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.site-footer a { color: var(--text-2); }
+.site-footer a:hover { color: var(--cyan); }
+
+/* ─── Images ─── */
+img { border-radius: 4px; }
+.wp-block-image figcaption {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.6rem;
+}
+
+/* ─── Gallery (Photography page) ─── */
+.wp-block-gallery {
+  --gap: 0.75rem;
+  gap: var(--gap);
+}
+.wp-block-gallery .wp-block-image {
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--bg-2);
+}
+.wp-block-gallery .wp-block-image img {
+  transition: transform 0.5s ease;
+  border-radius: 0;
+}
+.wp-block-gallery .wp-block-image:hover img {
+  transform: scale(1.05);
+}
+
+/* ─── Forms ─── */
+input, textarea, select {
+  background: var(--bg-2) !important;
+  border: 1px solid var(--line-2) !important;
+  color: var(--text) !important;
+  font-family: var(--sans);
+  padding: 0.8rem 1rem !important;
+  border-radius: 4px !important;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--cyan) !important;
+  outline: none;
+  box-shadow: 0 0 0 3px var(--cyan-soft);
+}
+
+/* ─── Tags / categories ─── */
+.tagcloud a, .post-tag a, .ct-tag, .category, .post-categories a {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.65rem !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  color: var(--text-2) !important;
+  background: var(--bg-2);
+  margin-right: 0.4rem;
+  margin-bottom: 0.4rem;
+  text-decoration: none !important;
+}
+.tagcloud a:hover, .post-tag a:hover, .category:hover {
+  border-color: var(--cyan);
+  color: var(--cyan) !important;
+}
+
+/* ─── Pagination ─── */
+.ct-pagination a, .page-numbers {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  margin: 0 0.25rem;
+}
+.ct-pagination a:hover, .page-numbers.current {
+  background: var(--cyan);
+  color: var(--bg);
+  border-color: var(--cyan);
+}
+
+/* ─── Connect / social icons row (use Blocksy social icons widget) ─── */
+.ct-social-box a, .ct-social-icons a {
+  color: var(--text-2) !important;
+  border: 1px solid var(--line-2);
+  border-radius: 50%;
+  padding: 0.7rem;
+  transition: all 0.25s ease;
+}
+.ct-social-box a:hover, .ct-social-icons a:hover {
+  color: var(--bg) !important;
+  background: var(--cyan);
+  border-color: var(--cyan);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px var(--cyan-glow);
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 720px) {
+  .ct-container, .container, .entry-content { padding-left: 1.25rem; padding-right: 1.25rem; }
+  h1, .entry-title { font-size: clamp(1.9rem, 8vw, 2.6rem); }
+}
+
+/* ─── Hide ugly Blocksy defaults ─── */
+.ct-pagination-buttons span.page-numbers.current::before { display: none; }
+.entry-summary, .ct-excerpt { color: var(--text-2); }
