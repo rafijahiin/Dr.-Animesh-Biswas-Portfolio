@@ -227,10 +227,12 @@ nav, header, section, footer { position: relative; z-index: 2; }
   background: linear-gradient(to bottom, rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.4) 70%, transparent);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  transform: translateY(-110%);
-  transition: transform 0.7s var(--ease);
+  /* Always visible — no scroll-triggered hide/show */
+  transform: translateY(0);
+  transition: background 0.4s var(--ease);
 }
-#nav.on { transform: translateY(0); }
+/* Slightly stronger background once user scrolls past hero */
+#nav.on { background: linear-gradient(to bottom, rgba(5, 5, 5, 0.95), rgba(5, 5, 5, 0.6) 70%, transparent); }
 .nav-logo {
   display: inline-flex; align-items: center; gap: 0.35rem;
   font-family: var(--serif);
