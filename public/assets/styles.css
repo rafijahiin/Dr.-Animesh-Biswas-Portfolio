@@ -1640,3 +1640,227 @@ footer {
   footer { grid-template-columns: 1fr; text-align: center; gap: 1rem; }
   .f-left, .f-links { justify-content: center; }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   19. MOBILE RESCUE — restore nav, tighten typography, single-column
+       stacks, calmer ambient. Applied on top of the existing
+       responsive rules.
+   ══════════════════════════════════════════════════════════════ */
+
+/* Hide heavy ambient layers on small screens for perf + clarity */
+@media (max-width: 720px) {
+  #webgl-hero, #particles { display: none !important; }
+  .grain { opacity: 0.4; }
+}
+
+@media (max-width: 720px) {
+  /* ─── Nav: restore as a compact horizontal-scroll pill row ─── */
+  #nav {
+    padding: 0.9rem var(--pad-x);
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 0.75rem;
+  }
+  .nav-links {
+    display: flex !important;
+    flex: 1 1 auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 1.1rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    mask-image: linear-gradient(to right, transparent 0, black 12px, black calc(100% - 12px), transparent 100%);
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links li { flex: 0 0 auto; }
+  .nav-links a {
+    font: 300 10px/1 'JetBrains Mono', monospace;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--cream-2);
+    text-decoration: none;
+    opacity: 0.7;
+  }
+  .nav-links a:hover, .nav-links a.is-active { opacity: 1; color: var(--gold); }
+  .nav-logo { flex: 0 0 auto; }
+  .nav-logo-mark { font-size: 0.95rem; }
+  .nav-btn {
+    flex: 0 0 auto;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.62rem;
+  }
+  .nav-btn-arrow { display: none; }
+
+  /* ─── Hero typography ─── */
+  .hero-name { font-size: clamp(2.4rem, 13vw, 3.4rem); line-height: 0.95; }
+  .hero-line-italic { padding-left: 0.4rem; }
+  .hero-overline { font-size: 0.55rem; }
+  .hero-overline-line { width: 14px; }
+  .hero-meta { gap: 1rem 1.2rem; margin-top: 2.2rem; }
+  .hero-meta-label { font-size: 0.52rem; }
+  .hero-meta-value { font-size: 0.78rem; }
+  .hero-scroll { bottom: 1.4rem; right: 1.4rem; }
+  .hero-scroll-label, .hero-scroll-chap { font-size: 0.52rem; }
+
+  /* ─── Chapter card titles (huge by default) ─── */
+  .chapter-card { min-height: 56vh; padding: 4rem var(--pad-x) 3rem; }
+  .chapter-card-title { font-size: clamp(2.6rem, 14vw, 4rem); line-height: 1; }
+  .chapter-card-sub { font-size: 0.85rem; line-height: 1.5; margin-top: 0.8rem; }
+  .chapter-card-num { font-size: 0.62rem; }
+  .chapter-card-coord { font-size: 0.55rem; margin-top: 1.4rem; }
+
+  /* ─── Ch 01 Person ─── */
+  .ch1-stage { padding: 4rem var(--pad-x) 5rem; gap: 2rem; }
+  .ch1-portrait-frame { aspect-ratio: 3 / 4; max-height: 70vh; }
+  .ch1-lede { font-size: 1.05rem; line-height: 1.5; }
+  .ch1-body p { font-size: 0.95rem; line-height: 1.65; }
+  .ch1-tags { gap: 0.4rem; margin-top: 1.4rem; }
+  .ch1-tags .tag { font-size: 0.52rem; padding: 0.35rem 0.7rem; }
+
+  /* ─── Ch 02 Focus (disable horizontal pin on touch — let it scroll natively) ─── */
+  .focus-pin { height: auto; padding-bottom: 3rem; }
+  .focus-track {
+    flex-direction: column;
+    transform: none !important;
+    height: auto;
+    padding: 1.5rem var(--pad-x);
+    gap: 1.2rem;
+  }
+  .focus-card {
+    flex: 1 1 auto !important;
+    width: 100%;
+    min-height: auto;
+    padding: 1.8rem 1.4rem;
+  }
+  .focus-card-title { font-size: 1.5rem; }
+  .focus-card-body { font-size: 0.9rem; line-height: 1.55; }
+  .focus-card-list li { font-size: 0.82rem; }
+  .focus-rail { display: none; }
+
+  /* ─── Ch 03 Impact — stack to 1-col with breathing room ─── */
+  .impact-stage { padding: 1rem var(--pad-x) 3rem; }
+  .impact-grid {
+    grid-template-columns: 1fr !important;
+    border: none;
+  }
+  .impact-cell {
+    padding: 1.6rem 0 !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--line) !important;
+    text-align: center;
+  }
+  .impact-cell:last-child { border-bottom: none !important; }
+  .impact-num { font-size: clamp(3.2rem, 14vw, 5rem); }
+  .impact-label { font-size: 0.95rem; margin-top: 0.4rem; }
+  .impact-sub { font-size: 0.7rem; margin-top: 0.3rem; }
+  .impact-marquee { font-size: 0.62rem; }
+
+  /* ─── Ch 04 Research — stack publication rows vertically ─── */
+  .pub-table { padding: 1rem var(--pad-x) 2rem; }
+  .pub-table-head { display: none; }
+  .pub-row, .pub-table-head {
+    display: block !important;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .pub-row { position: relative; }
+  .pub-year {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  .pub-body { padding: 0; }
+  .pub-title { font-size: 1.15rem; line-height: 1.3; margin-bottom: 0.4rem; }
+  .pub-abs { font-size: 0.86rem; line-height: 1.55; }
+  .pub-venue {
+    display: flex !important;
+    flex-direction: row;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+    font-size: 0.7rem;
+  }
+  .pub-venue-sub { display: inline !important; opacity: 0.7; }
+  .pub-action { position: absolute; top: 1.4rem; right: 0; font-size: 1rem; }
+  .pub-foot { padding: 1.6rem var(--pad-x); flex-direction: column; gap: 1rem; align-items: flex-start; }
+  .pub-foot-label, .pub-foot-link { font-size: 0.72rem; }
+
+  /* ─── Ch 05 Field Notes ─── */
+  .field-track { padding: 1rem var(--pad-x) 2rem; gap: 1.2rem; }
+  .field-card, .field-card-feature {
+    flex: 0 0 78vw !important;
+    min-height: auto;
+  }
+  .field-card-title { font-size: 1.1rem; line-height: 1.3; }
+  .field-card-excerpt { font-size: 0.86rem; line-height: 1.5; }
+  .field-card-meta { font-size: 0.6rem; }
+  .field-card-badge { font-size: 0.55rem; padding: 4px 8px; }
+
+  /* ─── Ch 06 Moments — 2-col grid with tighter gaps ─── */
+  .moments-tabs { padding: 1rem var(--pad-x) 1.4rem; gap: 4px; }
+  .moments-tab { font-size: 9px; padding: 7px 12px; letter-spacing: 0.12em; }
+  .moments-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.5rem !important;
+    padding: 0 var(--pad-x) 3rem;
+  }
+  .moments-item, .moments-item-xl, .moments-item-wide {
+    grid-column: span 1 !important;
+    aspect-ratio: 1 / 1;
+  }
+  .moments-item-xl { grid-column: span 2 !important; aspect-ratio: 16 / 10; }
+  .moments-cap { font-size: 0.7rem; }
+  .moments-sub { font-size: 0.55rem; }
+
+  /* ─── Ch 07 Diaries (already 1-col on mobile via earlier rule) ─── */
+  .diaries-grid { padding: 1.2rem var(--pad-x) 1rem; }
+  .diary-title { font-size: 1rem; }
+  .diary-date { top: 8px; right: 8px; padding: 4px 9px 6px; min-width: 44px; }
+  .diary-date-day { font-size: 18px; }
+  .diary-date-mo { font-size: 8px; }
+
+  /* ─── Contact ─── */
+  .contact { padding: 4rem var(--pad-x) 5rem; }
+  .contact-cta {
+    font-size: clamp(2rem, 10vw, 3.2rem) !important;
+    line-height: 1.05;
+  }
+  .contact-overline { font-size: 0.6rem; }
+  .contact-btn {
+    margin: 2rem 0 !important;
+    width: 100%;
+  }
+  .contact-btn-inner { font-size: 0.78rem; padding: 1.1rem 1.4rem; }
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+  }
+  .contact-col {
+    border-right: none !important;
+    border-bottom: 1px solid var(--line);
+    padding: 0.9rem 0;
+  }
+  .contact-col-label { font-size: 0.55rem; }
+  .contact-col-value { font-size: 0.95rem; }
+
+  /* ─── Misc — preloader smaller ─── */
+  .pre-name { font-size: 2.6rem; }
+  .pre-tag { font-size: 0.55rem; }
+  .pre-bar { width: 70vw; max-width: 280px; }
+  .pre-meta { font-size: 0.55rem; }
+}
+
+/* Extra-small phones */
+@media (max-width: 380px) {
+  :root { --pad-x: 1.1rem; }
+  .hero-name { font-size: clamp(2rem, 14vw, 2.8rem); }
+  .chapter-card-title { font-size: clamp(2.2rem, 14vw, 3rem); }
+  .nav-links a { font-size: 9px; letter-spacing: 0.12em; }
+  .nav-btn { font-size: 0.55rem; padding: 0.45rem 0.7rem; }
+}
