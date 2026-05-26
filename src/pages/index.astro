@@ -29,7 +29,7 @@ const galleryCategories = [
 
 // ─── YouTube (build-time fetch) ───
 const ytVideos = videos.show_section
-  ? await fetchLatestVideos(videos.channel_id, 4, videos.pinned_url)
+  ? await fetchLatestVideos(videos.channel_id, 12, videos.pinned_url)
   : [];
 
 // Helpers
@@ -494,18 +494,30 @@ function readingTime(body: string): number {
             </a>
           </div>
         ) : (
-          ytVideos.map((v) => (
-            <a class={`diary-card ${v.isPinned ? 'diary-card-pinned' : ''}`} href={v.url} target="_blank" rel="noopener">
-              <div class="diary-thumb">
-                <img src={v.thumbnail} alt={v.title} loading="lazy" />
-                <span class="diary-play" aria-hidden="true">▶</span>
-                {v.isPinned && <span class="diary-pin">Featured</span>}
-              </div>
-              <div class="diary-body">
-                <h4 class="diary-title">{v.title}</h4>
-              </div>
-            </a>
-          ))
+          ytVideos.map((v) => {
+            const d = v.published ? new Date(v.published) : null;
+            const day = d ? d.getDate() : '';
+            const month = d ? d.toLocaleDateString('en-US', { month: 'short' }) : '';
+            const year = d ? d.getFullYear() : '';
+            return (
+              <a class={`diary-card ${v.isPinned ? 'diary-card-pinned' : ''}`} href={v.url} target="_blank" rel="noopener">
+                <div class="diary-thumb">
+                  <img src={v.thumbnail} alt={v.title} loading="lazy" />
+                  <span class="diary-play" aria-hidden="true">▶</span>
+                  {v.isPinned && <span class="diary-pin">Featured</span>}
+                  {d && (
+                    <span class="diary-date">
+                      <span class="diary-date-day">{day}</span>
+                      <span class="diary-date-mo">{month} {year}</span>
+                    </span>
+                  )}
+                </div>
+                <div class="diary-body">
+                  <h4 class="diary-title">{v.title}</h4>
+                </div>
+              </a>
+            );
+          })
         )}
       </div>
 
