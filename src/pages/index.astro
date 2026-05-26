@@ -74,7 +74,7 @@ function readingTime(body: string): number {
     <div class="container hero-grid">
       <div>
         <p class="hero-greeting">{site.hero_greeting}</p>
-        <h1 class="hero-name">Dr. Animesh<br/><em>Biswas,</em> PhD</h1>
+        <h1 class="hero-name">Dr. Animesh<br/><em>Biswas,</em><br/>PhD.</h1>
         <p class="hero-role">{site.hero_role}</p>
         <div class="hero-cta-row">
           <a class="btn btn-primary" href={site.hero_cta_primary_href}>
@@ -86,14 +86,30 @@ function readingTime(body: string): number {
             <span class="arr">→</span>
           </a>
         </div>
+        <div class="hero-meta-row">
+          <div class="hero-meta-col">
+            <span class="hero-meta-label">Role</span>
+            <span class="hero-meta-value">Global Health Expert</span>
+          </div>
+          <div class="hero-meta-col">
+            <span class="hero-meta-label">Based</span>
+            <span class="hero-meta-value">Dhaka, Bangladesh</span>
+          </div>
+          <div class="hero-meta-col">
+            <span class="hero-meta-label">Advisory</span>
+            <span class="hero-meta-value">WHO MPDSR TWG</span>
+          </div>
+        </div>
       </div>
       <div class="hero-photo-col">
         <div class="hero-photo-wrap">
           {site.hero_photo
             ? <img src={site.hero_photo} alt="Dr. Animesh Biswas" class="hero-photo" />
             : <div class="hero-photo-placeholder">Upload a hero photo in<br/>Site Settings → Hero photo</div>}
-          <span class="hero-photo-frame"></span>
+          <span class="hero-photo-corner hero-photo-corner-tl"></span>
+          <span class="hero-photo-corner hero-photo-corner-br"></span>
         </div>
+        <span class="hero-photo-frame"></span>
       </div>
     </div>
   </section>
@@ -124,13 +140,12 @@ function readingTime(body: string): number {
 
   <!-- ═══ SOCIALS GRID ═══ -->
   {socials.length > 0 && (
-    <section class="section">
+    <section class="section section-alt">
       <div class="container">
         <div class="section-head">
-          <div>
-            <h2 class="section-title">{site.section_socials_title}</h2>
-            <p style="color: var(--muted); margin-top: 0.4rem; max-width: 38rem;">{site.section_socials_sub}</p>
-          </div>
+          <p class="section-eyebrow">Socials</p>
+          <h2 class="section-title">{site.section_socials_title.split(' ').slice(0, -1).join(' ')} <em>{site.section_socials_title.split(' ').slice(-1)}</em></h2>
+          <p class="section-sub">{site.section_socials_sub}</p>
         </div>
         <div class="socials-grid">
           {socials.map((s) => (
@@ -151,8 +166,13 @@ function readingTime(body: string): number {
   <section class="section section-tight">
     <div class="container">
       <div class="section-head">
-        <h2 class="section-title">{site.section_story_title}</h2>
-        <a href="/about/" class="section-link">Read more →</a>
+        <div class="section-head-row">
+          <div>
+            <p class="section-eyebrow">About</p>
+            <h2 class="section-title">My <em>Story</em></h2>
+          </div>
+          <a href="/about/" class="section-link">Read more <span>→</span></a>
+        </div>
       </div>
       <div class="story-grid">
         {site.portrait
@@ -167,13 +187,12 @@ function readingTime(body: string): number {
 
   <!-- ═══ ADVISORY AREAS ═══ -->
   {advisory.length > 0 && (
-    <section id="advisory" class="section">
+    <section id="advisory" class="section section-alt">
       <div class="container">
         <div class="section-head">
-          <div>
-            <h2 class="section-title">{site.section_advisory_title}</h2>
-            <p style="color: var(--muted); margin-top: 0.4rem; max-width: 38rem;">{site.section_advisory_sub}</p>
-          </div>
+          <p class="section-eyebrow">What I do</p>
+          <h2 class="section-title">Advisory <em>Areas</em></h2>
+          <p class="section-sub">{site.section_advisory_sub}</p>
         </div>
         <div class="advisory-grid">
           {advisory.map((a) => (
@@ -198,10 +217,9 @@ function readingTime(body: string): number {
     <section id="photography" class="section">
       <div class="container">
         <div class="section-head">
-          <div>
-            <h2 class="section-title">{site.section_gallery_title}</h2>
-            <p style="color: var(--muted); margin-top: 0.4rem; max-width: 38rem;">{site.section_gallery_sub}</p>
-          </div>
+          <p class="section-eyebrow">Visual archive</p>
+          <h2 class="section-title">{site.section_gallery_title}</h2>
+          <p class="section-sub">{site.section_gallery_sub}</p>
         </div>
         <div class="gallery-tabs" id="gallery-tabs">
           <button class="gallery-tab is-active" data-cat="all">All</button>
@@ -227,16 +245,19 @@ function readingTime(body: string): number {
 
   <!-- ═══ VIDEOS ═══ -->
   {videos.show_section && (
-    <section id="videos" class="section">
+    <section id="videos" class="section section-alt">
       <div class="container">
         <div class="section-head">
-          <div>
-            <h2 class="section-title">{site.section_videos_title}</h2>
-            <p style="color: var(--muted); margin-top: 0.4rem; max-width: 38rem;">{site.section_videos_sub}</p>
+          <div class="section-head-row">
+            <div>
+              <p class="section-eyebrow">From AniTap</p>
+              <h2 class="section-title">{site.section_videos_title}</h2>
+              <p class="section-sub">{site.section_videos_sub}</p>
+            </div>
+            <a class="section-link" href={`https://www.youtube.com/${videos.channel_handle}`} target="_blank" rel="noopener">
+              Visit channel <span>→</span>
+            </a>
           </div>
-          <a class="section-link" href={`https://www.youtube.com/${videos.channel_handle}`} target="_blank" rel="noopener">
-            Visit channel →
-          </a>
         </div>
         {ytVideos.length === 0 ? (
           <div class="videos-empty">YouTube channel ID not yet configured.</div>
@@ -269,11 +290,14 @@ function readingTime(body: string): number {
     <section class="section">
       <div class="container">
         <div class="section-head">
-          <div>
-            <h2 class="section-title">{site.section_field_notes_title}</h2>
-            <p style="color: var(--muted); margin-top: 0.4rem; max-width: 38rem;">{site.section_field_notes_sub}</p>
+          <div class="section-head-row">
+            <div>
+              <p class="section-eyebrow">The Work</p>
+              <h2 class="section-title">Field <em>Notes</em></h2>
+              <p class="section-sub">{site.section_field_notes_sub}</p>
+            </div>
+            <a class="section-link" href="/field-notes/">All field notes <span>→</span></a>
           </div>
-          <a class="section-link" href="/field-notes/">All field notes →</a>
         </div>
         <div class="posts-grid">
           {featuredPosts.map((p) => (
@@ -298,14 +322,17 @@ function readingTime(body: string): number {
 
   <!-- ═══ STORIES & POEMS PREVIEW ═══ -->
   {featuredStories.length > 0 && (
-    <section class="section">
+    <section class="section section-alt">
       <div class="container">
         <div class="section-head">
-          <div>
-            <h2 class="section-title">{site.section_stories_title}</h2>
-            <p style="color: var(--muted); margin-top: 0.4rem; max-width: 38rem;">{site.section_stories_sub}</p>
+          <div class="section-head-row">
+            <div>
+              <p class="section-eyebrow">Personal writing</p>
+              <h2 class="section-title">Stories &amp; <em>Poems</em></h2>
+              <p class="section-sub">{site.section_stories_sub}</p>
+            </div>
+            <a class="section-link" href="/stories/">All writing <span>→</span></a>
           </div>
-          <a class="section-link" href="/stories/">All writing →</a>
         </div>
         <div class="posts-grid">
           {featuredStories.map((p) => (
@@ -408,6 +435,23 @@ function readingTime(body: string): number {
       }
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
+
+      // Scroll-reveal — fade up section heads and cards as they enter
+      const revealTargets = document.querySelectorAll('.section-head, .stat, .social-card, .advisory-card, .post-card, .video-card, .gallery-item, .hero-photo-col, .story-grid > *, .pub-item, .blog-list-item');
+      revealTargets.forEach((el) => el.classList.add('reveal'));
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-in');
+              io.unobserve(e.target);
+            }
+          });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+        revealTargets.forEach((el) => io.observe(el));
+      } else {
+        revealTargets.forEach((el) => el.classList.add('is-in'));
+      }
     })();
   </script>
 </Base>
